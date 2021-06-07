@@ -50,7 +50,7 @@ Note: 10.11.2.113:30771 in this cfg file is the node port on a k8s node.
 ### Run HAproxy...
 ```
 docker run -d --name my-running-haproxy3 \
-       -v $PWD/haproxy:/usr/local/etc/haproxy:ro  -\
+       -v $PWD/haproxy:/usr/local/etc/haproxy:ro  \
        -v $PWD/certs:/etc/ssl/private:ro \
        -p 7443:443 \
        --sysctl net.ipv4.ip_unprivileged_port_start=0 \
