@@ -2,8 +2,10 @@
 ### Create certificates
 ```
 mkdir certs
-openssl req -x509 -newkey rsa:2048 -keyout ./certs/tls.key -out ./certs/tls.crt -days 365 -nodes -subj "/CN=test3.radarhack.com"
-...
+cd certs
+openssl req -x509 -newkey rsa:2048 -keyout ./tls.key -out ./tls.crt -days 365 -nodes -subj "/CN=test3.radarhack.com"
+cat tls.crt >tls.pem
+cat tls.key >>tls.pem
 ```
 
 ### Create HAproxy config file
