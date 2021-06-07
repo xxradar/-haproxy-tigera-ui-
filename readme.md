@@ -1,10 +1,16 @@
 # How to setup HAProxy for Tigera UI
+### Create certificates
 ```
 mkdir certs
+openssl req -x509 -newkey rsa:2048 -keyout ./certs/tls.key -out ./certs/tls.crt -days 365 -nodes -subj "/CN=test3.radarhack.com"
 ...
 ```
+
+### Create HAproxy config file
+
 ```
 mkdir haproxy
+cd haproxy
 ```
 Create a file haproxy.cfg
 ```
@@ -24,7 +30,6 @@ global
 
 frontend www-https
    bind *:443 ssl crt /etc/ssl/private/tls.pem alpn h2,http/1.1
-#   reqadd X-Forwarded-Proto:\ https
    default_backend  CALENT3_TIGERA
 
 backend CALENT3_TIGERA
@@ -39,7 +44,8 @@ backend BLACKHOLE
 	mode http
 	log global
 ```
-Run HAproxy
+Note: 10.11.2.113:30771 in this cfg file is the node port on a k8s node.
+### Run HAproxy...
 ```
 docker run -d --name my-running-haproxy3 \
        -v $PWD/haproxy:/usr/local/etc/haproxy:ro  -\
@@ -48,3 +54,4 @@ docker run -d --name my-running-haproxy3 \
        --sysctl net.ipv4.ip_unprivileged_port_start=0 \
        haproxy:2.3
 ```
+The UI is available in this case on `https://test3.radarhack.com:7443`
