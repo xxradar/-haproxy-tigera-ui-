@@ -35,7 +35,7 @@ frontend www-https
    default_backend  CALENT3_TIGERA
 
 backend CALENT3_TIGERA
-    description BE Preprod Calico Enterprise UI
+    description Calico Enterprise UI
     mode http
     balance source
     server calent3-no1 10.11.2.113:30771 check maxconn 1024 ssl verify none
